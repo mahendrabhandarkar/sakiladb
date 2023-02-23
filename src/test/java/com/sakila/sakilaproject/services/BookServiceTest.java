@@ -1,9 +1,12 @@
 package com.sakila.sakilaproject.services;
 
 import org.junit.jupiter.api.Test;
+import reactor.core.publisher.Mono;
 import reactor.test.StepVerifier;
 
 import static org.junit.jupiter.api.Assertions.*;
+import reactor.core.publisher.Flux;
+import com.sakila.sakilaproject.domain.Book;
 
 class BookServiceTest {
 
@@ -18,7 +21,7 @@ class BookServiceTest {
 
     @Test
     void getBooks() {
-        var books = bookService.getBooks();
+        Flux<Book> books = bookService.getBooks();
         StepVerifier.create(books)
                 .assertNext(book -> {
                     assertEquals("Book One",book.getBookInfo().getTitle());
@@ -38,7 +41,7 @@ class BookServiceTest {
 
     @Test
     void getBookById() {
-        var book = bookService.getBookById(1).log();
+        Mono<Book> book = bookService.getBookById(1).log();
         StepVerifier.create(book)
                 .assertNext(b -> {
                     assertEquals("Book One",b.getBookInfo().getTitle());

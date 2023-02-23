@@ -11,7 +11,7 @@ public class HotAndColdStreamsTest {
 
     @Test
     public void colStreamTest() {
-        var numbers = Flux.range(1,10);
+        Flux<Integer> numbers = Flux.range(1,10);
 
         numbers.subscribe(integer -> System.out.println("Subscriber 1 = " + integer));
         numbers.subscribe(integer -> System.out.println("Subscriber 2 = " + integer));
@@ -20,7 +20,7 @@ public class HotAndColdStreamsTest {
     @SneakyThrows
     @Test
     public void hotStreamTest() {
-        var numbers = Flux.range(1,10)
+        Flux<Integer> numbers = Flux.range(1,10)
                 .delayElements(Duration.ofMillis(1000));
 
         ConnectableFlux<Integer> publisher = numbers.publish();

@@ -9,7 +9,7 @@ public class BackPressureTest {
 
     @Test
     public void testBackPressure() {
-        var numbers = Flux.range(1,100).log();
+        Flux<Integer> numbers = Flux.range(1,100).log();
         //numbers.subscribe(integer -> System.out.println("integer = " + integer));
 
         numbers.subscribe(new BaseSubscriber<Integer>() {
@@ -43,7 +43,7 @@ public class BackPressureTest {
 
     @Test
     public void testBackPressureDrop() {
-        var numbers = Flux.range(1,100).log();
+        Flux<Integer> numbers = Flux.range(1,100).log();
         //numbers.subscribe(integer -> System.out.println("integer = " + integer));
 
         numbers
@@ -82,7 +82,7 @@ public class BackPressureTest {
 
     @Test
     public void testBackPressureBuffer() {
-        var numbers = Flux.range(1,100).log();
+        Flux<Integer> numbers = Flux.range(1,100).log();
         //numbers.subscribe(integer -> System.out.println("integer = " + integer));
 
         numbers
@@ -120,7 +120,7 @@ public class BackPressureTest {
 
     @Test
     public void testBackPressureError() {
-        var numbers = Flux.range(1,100).log();
+        Flux<Integer> numbers = Flux.range(1,100).log();
         //numbers.subscribe(integer -> System.out.println("integer = " + integer));
 
         numbers

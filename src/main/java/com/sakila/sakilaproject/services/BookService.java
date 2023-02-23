@@ -9,6 +9,7 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import reactor.util.retry.Retry;
 import reactor.util.retry.RetryBackoffSpec;
+import com.sakila.sakilaproject.domain.BookInfo;
 
 import java.time.Duration;
 import java.util.List;
@@ -25,7 +26,7 @@ public class BookService {
     }
 
     public Flux<Book> getBooks() {
-        var allBooks = bookInfoService.getBooks();
+        Flux<BookInfo> allBooks = bookInfoService.getBooks();
         return allBooks
                 .flatMap(bookInfo -> {
                     Mono<List<Review>> reviews =
@@ -41,7 +42,7 @@ public class BookService {
     }
 
     public Flux<Book> getBooksRetry() {
-        var allBooks = bookInfoService.getBooks();
+        Flux<BookInfo> allBooks = bookInfoService.getBooks();
         return allBooks
                 .flatMap(bookInfo -> {
                     Mono<List<Review>> reviews =
@@ -59,7 +60,7 @@ public class BookService {
 
     public Flux<Book> getBooksRetryWhen() {
         //var retrySpecs = getRetryBackoffSpec();
-        var allBooks = bookInfoService.getBooks();
+        Flux<BookInfo> allBooks = bookInfoService.getBooks();
         return allBooks
                 .flatMap(bookInfo -> {
                     Mono<List<Review>> reviews =
@@ -86,8 +87,8 @@ public class BookService {
     }
 
     public Mono<Book> getBookById(long bookId) {
-        var book = bookInfoService.getBookById(bookId);
-        var review = reviewService
+        Mono<BookInfo> book = bookInfoService.getBookById(bookId);
+        Mono<List<Review>> review = reviewService
                 .getReviews(bookId)
                 .collectList();
 

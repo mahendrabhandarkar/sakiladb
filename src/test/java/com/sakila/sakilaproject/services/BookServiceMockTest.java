@@ -8,6 +8,8 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import reactor.test.StepVerifier;
+import reactor.core.publisher.Flux;
+import com.sakila.sakilaproject.domain.Book;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -32,7 +34,7 @@ class BookServiceMockTest {
         Mockito.when(reviewService.getReviews(Mockito.anyLong()))
                 .thenCallRealMethod();
 
-        var books = bookService.getBooks();
+        Flux<Book> books = bookService.getBooks();
 
         StepVerifier.create(books)
                 .expectNextCount(3)
@@ -48,7 +50,7 @@ class BookServiceMockTest {
         Mockito.when(reviewService.getReviews(Mockito.anyLong()))
                 .thenThrow(new IllegalStateException("exception using test"));
 
-        var books = bookService.getBooks();
+        Flux<Book> books = bookService.getBooks();
 
         StepVerifier.create(books)
                 .expectError(BookException.class)
@@ -64,7 +66,7 @@ class BookServiceMockTest {
         Mockito.when(reviewService.getReviews(Mockito.anyLong()))
                 .thenThrow(new IllegalStateException("exception using test"));
 
-        var books = bookService.getBooksRetry();
+        Flux<Book> books = bookService.getBooksRetry();
 
         StepVerifier.create(books)
                 .expectError(BookException.class)
@@ -80,7 +82,7 @@ class BookServiceMockTest {
         Mockito.when(reviewService.getReviews(Mockito.anyLong()))
                 .thenThrow(new IllegalStateException("exception using test"));
 
-        var books = bookService.getBooksRetryWhen();
+        Flux<Book> books = bookService.getBooksRetryWhen();
 
         StepVerifier.create(books)
                 .expectError(BookException.class)

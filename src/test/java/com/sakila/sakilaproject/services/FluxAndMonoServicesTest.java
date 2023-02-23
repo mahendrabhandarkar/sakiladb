@@ -1,9 +1,13 @@
 package com.sakila.sakilaproject.services;
 
 import org.junit.jupiter.api.Test;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Hooks;
+import reactor.core.publisher.Mono;
 import reactor.test.StepVerifier;
 import reactor.tools.agent.ReactorDebugAgent;
+
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -14,7 +18,7 @@ class FluxAndMonoServicesTest {
 
     @Test
     void fruitsFlux() {
-        var fruitsFlux = fluxAndMonoServices.fruitsFlux();
+        Flux<String> fruitsFlux = fluxAndMonoServices.fruitsFlux();
 
         StepVerifier.create(fruitsFlux)
                 .expectNext("Mango","Orange","Banana")
@@ -23,7 +27,7 @@ class FluxAndMonoServicesTest {
 
     @Test
     void fruitMono() {
-        var fruitsMono = fluxAndMonoServices.fruitMono();
+        Mono<String> fruitsMono = fluxAndMonoServices.fruitMono();
 
         StepVerifier.create(fruitsMono)
                 .expectNext("Mango")
@@ -32,7 +36,7 @@ class FluxAndMonoServicesTest {
 
     @Test
     void fruitsFluxMap() {
-        var fruitsFlux = fluxAndMonoServices.fruitsFluxMap();
+        Flux<String> fruitsFlux = fluxAndMonoServices.fruitsFluxMap();
 
         StepVerifier.create(fruitsFlux)
                 .expectNext("MANGO","ORANGE","BANANA")
@@ -41,7 +45,7 @@ class FluxAndMonoServicesTest {
 
     @Test
     void fruitsFluxFilter() {
-        var fruitsFlux = fluxAndMonoServices.fruitsFluxFilter(5).log();
+        Flux<String> fruitsFlux = fluxAndMonoServices.fruitsFluxFilter(5).log();
 
         StepVerifier.create(fruitsFlux)
                 .expectNext("Orange","Banana")
@@ -50,7 +54,7 @@ class FluxAndMonoServicesTest {
 
     @Test
     void fruitsFluxFilterMap() {
-        var fruitsFlux = fluxAndMonoServices.fruitsFluxFilterMap(5);
+        Flux<String> fruitsFlux = fluxAndMonoServices.fruitsFluxFilterMap(5);
 
         StepVerifier.create(fruitsFlux)
                 .expectNext("ORANGE","BANANA")
@@ -59,7 +63,7 @@ class FluxAndMonoServicesTest {
 
     @Test
     void fruitsFluxFlatMap() {
-        var fruitsFlux = fluxAndMonoServices.fruitsFluxFlatMap();
+        Flux<String> fruitsFlux = fluxAndMonoServices.fruitsFluxFlatMap();
 
         StepVerifier.create(fruitsFlux)
                 .expectNextCount(17)
@@ -68,7 +72,7 @@ class FluxAndMonoServicesTest {
 
     @Test
     void fruitsFluxFlatMapAsync() {
-        var fruitsFlux = fluxAndMonoServices.fruitsFluxFlatMapAsync();
+        Flux<String> fruitsFlux = fluxAndMonoServices.fruitsFluxFlatMapAsync();
 
         StepVerifier.create(fruitsFlux)
                 .expectNextCount(17)
@@ -77,7 +81,7 @@ class FluxAndMonoServicesTest {
 
     @Test
     void fruitMonoFlatMap() {
-        var fruitsFlux = fluxAndMonoServices.fruitMonoFlatMap();
+        Mono<List<String>> fruitsFlux = fluxAndMonoServices.fruitMonoFlatMap();
 
         StepVerifier.create(fruitsFlux)
                 .expectNextCount(1)
@@ -87,7 +91,7 @@ class FluxAndMonoServicesTest {
     @Test
     void fruitsFluxConcatMap() {
 
-        var fruitsFlux = fluxAndMonoServices.fruitsFluxConcatMap();
+        Flux<String> fruitsFlux = fluxAndMonoServices.fruitsFluxConcatMap();
 
         StepVerifier.create(fruitsFlux)
                 .expectNextCount(17)
@@ -96,7 +100,7 @@ class FluxAndMonoServicesTest {
 
     @Test
     void fruitMonoFlatMapMany() {
-        var fruitsFlux = fluxAndMonoServices.fruitMonoFlatMapMany();
+        Flux<String> fruitsFlux = fluxAndMonoServices.fruitMonoFlatMapMany();
 
         StepVerifier.create(fruitsFlux)
                 .expectNextCount(5)
@@ -106,7 +110,7 @@ class FluxAndMonoServicesTest {
     @Test
     void fruitsFluxTransform() {
 
-        var fruitsFlux
+        Flux<String> fruitsFlux
                 = fluxAndMonoServices.fruitsFluxTransform(10);
 
         StepVerifier.create(fruitsFlux)
@@ -116,7 +120,7 @@ class FluxAndMonoServicesTest {
 
     @Test
     void fruitsFluxTransformDefaultIfEmpty() {
-        var fruitsFlux
+        Flux<String> fruitsFlux
                 = fluxAndMonoServices.fruitsFluxTransformDefaultIfEmpty(10);
 
         StepVerifier.create(fruitsFlux)
@@ -126,7 +130,7 @@ class FluxAndMonoServicesTest {
 
     @Test
     void fruitsFluxTransformSwitchIfEmpty() {
-        var fruitsFlux
+        Flux<String> fruitsFlux
                 = fluxAndMonoServices.fruitsFluxTransformSwitchIfEmpty(8);
 
         StepVerifier.create(fruitsFlux)
@@ -138,7 +142,7 @@ class FluxAndMonoServicesTest {
     @Test
     void fruitsFluxConcat() {
 
-        var fruitsFlux = fluxAndMonoServices.fruitsFluxConcat().log();
+        Flux<String> fruitsFlux = fluxAndMonoServices.fruitsFluxConcat().log();
         StepVerifier.create(fruitsFlux)
                 .expectNext("Mango","Orange","Tomato","Lemon")
                 .verifyComplete();
@@ -146,7 +150,7 @@ class FluxAndMonoServicesTest {
 
     @Test
     void fruitsFluxConcatWith() {
-        var fruitsFlux = fluxAndMonoServices.fruitsFluxConcatWith().log();
+        Flux<String> fruitsFlux = fluxAndMonoServices.fruitsFluxConcatWith().log();
         StepVerifier.create(fruitsFlux)
                 .expectNext("Mango","Orange","Tomato","Lemon")
                 .verifyComplete();
@@ -155,7 +159,7 @@ class FluxAndMonoServicesTest {
     @Test
     void fruitsMonoConcatWith() {
 
-        var fruitsFlux = fluxAndMonoServices.fruitsMonoConcatWith().log();
+        Flux<String> fruitsFlux = fluxAndMonoServices.fruitsMonoConcatWith().log();
         StepVerifier.create(fruitsFlux)
                 .expectNext("Mango","Tomato")
                 .verifyComplete();
@@ -163,7 +167,7 @@ class FluxAndMonoServicesTest {
 
     @Test
     void fruitsFluxMerge() {
-        var fruitsFlux = fluxAndMonoServices.fruitsFluxMerge().log();
+        Flux<String> fruitsFlux = fluxAndMonoServices.fruitsFluxMerge().log();
         StepVerifier.create(fruitsFlux)
                 .expectNext("Mango","Tomato","Orange","Lemon")
                 .verifyComplete();
@@ -171,7 +175,7 @@ class FluxAndMonoServicesTest {
 
     @Test
     void fruitsFluxMergeWith() {
-        var fruitsFlux = fluxAndMonoServices.fruitsFluxMergeWith().log();
+        Flux<String> fruitsFlux = fluxAndMonoServices.fruitsFluxMergeWith().log();
         StepVerifier.create(fruitsFlux)
                 .expectNext("Mango","Tomato","Orange","Lemon")
                 .verifyComplete();
@@ -179,7 +183,7 @@ class FluxAndMonoServicesTest {
 
     @Test
     void fruitsFluxMergeWithSequential() {
-        var fruitsFlux = fluxAndMonoServices
+        Flux<String> fruitsFlux = fluxAndMonoServices
                 .fruitsFluxMergeWithSequential().log();
         StepVerifier.create(fruitsFlux)
                 .expectNext("Mango","Orange","Tomato","Lemon")
@@ -188,7 +192,7 @@ class FluxAndMonoServicesTest {
 
     @Test
     void fruitsFluxZip() {
-        var fruitsFlux = fluxAndMonoServices
+        Flux<String> fruitsFlux = fluxAndMonoServices
                 .fruitsFluxZip().log();
         StepVerifier.create(fruitsFlux)
                 .expectNext("MangoTomato","OrangeLemon")
@@ -197,7 +201,7 @@ class FluxAndMonoServicesTest {
 
     @Test
     void fruitsFluxZipWith() {
-        var fruitsFlux = fluxAndMonoServices
+        Flux<String> fruitsFlux = fluxAndMonoServices
                 .fruitsFluxZipWith().log();
         StepVerifier.create(fruitsFlux)
                 .expectNext("MangoTomato","OrangeLemon")
@@ -206,7 +210,7 @@ class FluxAndMonoServicesTest {
 
     @Test
     void fruitsFluxZipTuple() {
-        var fruitsFlux = fluxAndMonoServices
+        Flux<String> fruitsFlux = fluxAndMonoServices
                 .fruitsFluxZipTuple().log();
         StepVerifier.create(fruitsFlux)
                 .expectNext("MangoTomatoPotato","OrangeLemonBeans")
@@ -216,7 +220,7 @@ class FluxAndMonoServicesTest {
     @Test
     void fruitsMonoZipWith() {
 
-        var fruitsFlux = fluxAndMonoServices
+        Mono<String> fruitsFlux = fluxAndMonoServices
                 .fruitsMonoZipWith().log();
         StepVerifier.create(fruitsFlux)
                 .expectNext("MangoTomato")
@@ -225,7 +229,7 @@ class FluxAndMonoServicesTest {
 
     @Test
     void fruitsFluxFilterDoOn() {
-        var fruitsFlux = fluxAndMonoServices
+        Flux<String> fruitsFlux = fluxAndMonoServices
                 .fruitsFluxFilterDoOn(5).log();
 
         StepVerifier.create(fruitsFlux)
@@ -235,7 +239,7 @@ class FluxAndMonoServicesTest {
 
     @Test
     void fruitsFluxOnErrorReturn() {
-        var fruitsFlux = fluxAndMonoServices
+        Flux<String> fruitsFlux = fluxAndMonoServices
                 .fruitsFluxOnErrorReturn().log();
 
         StepVerifier.create(fruitsFlux)
@@ -245,7 +249,7 @@ class FluxAndMonoServicesTest {
 
     @Test
     void fruitsFluxOnErrorContinue() {
-        var fruitsFlux = fluxAndMonoServices
+        Flux<String> fruitsFlux = fluxAndMonoServices
                 .fruitsFluxOnErrorContinue().log();
 
         StepVerifier.create(fruitsFlux)
@@ -258,7 +262,7 @@ class FluxAndMonoServicesTest {
         //Hooks.onOperatorDebug();
         ReactorDebugAgent.init();
         ReactorDebugAgent.processExistingClasses();
-        var fruitsFlux = fluxAndMonoServices
+        Flux<String> fruitsFlux = fluxAndMonoServices
                 .fruitsFluxOnErrorMap().log();
 
         StepVerifier.create(fruitsFlux)
@@ -269,7 +273,7 @@ class FluxAndMonoServicesTest {
 
     @Test
     void fruitsFluxOnError() {
-        var fruitsFlux = fluxAndMonoServices
+        Flux<String> fruitsFlux = fluxAndMonoServices
                 .fruitsFluxOnError().log();
 
         StepVerifier.create(fruitsFlux)
