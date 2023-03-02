@@ -36,6 +36,7 @@ public interface StudentRepository extends JpaRepository<Student,Long> {
     //Native
     @Query(
             value = "SELECT * FROM tbl_student s where s.email_address = ?1",
+            countQuery = "SELECT count(*) FROM tbl_student s where s.email_address = ?1",
             nativeQuery = true
     )
     Student getStudentByEmailAddressNative(String emailId);
@@ -44,6 +45,7 @@ public interface StudentRepository extends JpaRepository<Student,Long> {
     //Native Named Param
     @Query(
             value = "SELECT * FROM tbl_student s where s.email_address = :emailId",
+            countQuery = "SELECT count(*) FROM tbl_student s where s.email_address = :emailId",
             nativeQuery = true
     )
     Student getStudentByEmailAddressNativeNamedParam(
@@ -54,6 +56,7 @@ public interface StudentRepository extends JpaRepository<Student,Long> {
     @Transactional
     @Query(
             value = "update tbl_student set first_name = ?1 where email_address = ?2",
+            countQuery = "SELECT count(*) FROM tbl_student where email_address = ?2",
             nativeQuery = true
     )
     int updateStudentNameByEmailId(String firstName, String emailId);
