@@ -10,7 +10,7 @@ https://www.youtube.com/watch?v=bAS_WcH6NeQ - Spring Boot 3.0 | Configuring Spri
 
 Feign client - https://www.youtube.com/watch?v=tlshVRtbS_c <br />
 Eureka - <br />
-WebFlux - <br />
+WebFlux - https://www.youtube.com/watch?v=M3jNn3HMeWg <br />
 Server - Jar + Tomcat 7 / War + Tomcat 9  <br />
 Spring boot 2.7.6 with java 8 / Spring boot 3.x with java 11 <br />
 DB connection Pooling - Apache DBCP / C3PO  <br />
