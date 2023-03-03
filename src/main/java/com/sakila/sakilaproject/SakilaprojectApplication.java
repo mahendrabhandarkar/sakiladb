@@ -7,6 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class SakilaprojectApplication {
 
 	public static void main(String[] args) {
+	//	SpringApplication.setAdditionalProfiles("dev");
 		SpringApplication.run(SakilaprojectApplication.class, args);
 	}
 
